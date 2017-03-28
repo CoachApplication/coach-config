@@ -1,7 +1,7 @@
 package provider
 
 import (
-	base_config "github.com/james-nesbitt/coach-config"
+	base_config "github.com/CoachApplication/coach-config"
 )
 
 type Factory interface {

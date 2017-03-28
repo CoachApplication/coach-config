@@ -1,10 +1,10 @@
 package provider
 
 import (
-	api "github.com/james-nesbitt/coach-api"
-	base "github.com/james-nesbitt/coach-base"
-	base_errors "github.com/james-nesbitt/coach-base/errors"
-	base_config "github.com/james-nesbitt/coach-config"
+	api "github.com/CoachApplication/coach-api"
+	base "github.com/CoachApplication/coach-base"
+	base_errors "github.com/CoachApplication/coach-base/errors"
+	base_config "github.com/CoachApplication/coach-config"
 )
 
 type GetOperation struct {

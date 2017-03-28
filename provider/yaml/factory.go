@@ -1,8 +1,8 @@
 package yaml
 
 import (
-	base_config "github.com/james-nesbitt/coach-config"
-	base_config_provider "github.com/james-nesbitt/coach-config/provider"
+	base_config "github.com/CoachApplication/coach-config"
+	base_config_provider "github.com/CoachApplication/coach-config/provider"
 )
 
 /**

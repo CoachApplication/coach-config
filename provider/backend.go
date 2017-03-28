@@ -1,7 +1,7 @@
 package provider
 
 import (
-	base_config "github.com/james-nesbitt/coach-config"
+	base_config "github.com/CoachApplication/coach-config"
 )
 
 // Backend Provider consumed struct that handles retrieving Config for certain key-scope combinations

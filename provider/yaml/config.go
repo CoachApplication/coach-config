@@ -5,10 +5,10 @@ import (
 	yaml "gopkg.in/yaml.v2"
 	"io"
 
-	api "github.com/james-nesbitt/coach-api"
-	base "github.com/james-nesbitt/coach-base"
-	base_config "github.com/james-nesbitt/coach-config"
-	base_config_provider "github.com/james-nesbitt/coach-config/provider"
+	api "github.com/CoachApplication/coach-api"
+	base "github.com/CoachApplication/coach-base"
+	base_config "github.com/CoachApplication/coach-config"
+	base_config_provider "github.com/CoachApplication/coach-config/provider"
 )
 
 // YamlConfig Build Config by marshalling yml from a connector

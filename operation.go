@@ -1,8 +1,8 @@
 package configuration
 
 import (
-	coach_api "github.com/james-nesbitt/coach-api"
-	coach_base "github.com/james-nesbitt/coach-base"
+	coach_api "github.com/CoachApplication/coach-api"
+	coach_base "github.com/CoachApplication/coach-base"
 )
 
 // GetOperation Operation that retrieves a single ScopedConfig for a config Key

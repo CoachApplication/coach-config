@@ -6,7 +6,7 @@ import (
 	"path"
 	"strings"
 
-	coach_utils "github.com/james-nesbitt/coach-utils"
+	coach_utils "github.com/CoachApplication/coach-utils"
 )
 
 /**

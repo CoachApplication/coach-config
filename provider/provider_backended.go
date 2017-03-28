@@ -2,7 +2,7 @@ package provider
 
 import (
 	"fmt"
-	base_config "github.com/james-nesbitt/coach-config"
+	base_config "github.com/CoachApplication/coach-config"
 )
 
 /**

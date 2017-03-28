@@ -5,8 +5,8 @@ import (
 	"reflect"
 	"testing"
 
-	api "github.com/james-nesbitt/coach-api"
-	base "github.com/james-nesbitt/coach-base"
+	api "github.com/CoachApplication/coach-api"
+	base "github.com/CoachApplication/coach-base"
 )
 
 /**

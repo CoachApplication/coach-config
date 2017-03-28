@@ -1,10 +1,10 @@
 package configuration
 
 import (
-	api "github.com/james-nesbitt/coach-api"
-	base "github.com/james-nesbitt/coach-base"
-	base_errors "github.com/james-nesbitt/coach-base/errors"
-	base_property "github.com/james-nesbitt/coach-base/property"
+	api "github.com/CoachApplication/coach-api"
+	base "github.com/CoachApplication/coach-base"
+	base_errors "github.com/CoachApplication/coach-base/errors"
+	base_property "github.com/CoachApplication/coach-base/property"
 	"errors"
 )
 
