@@ -1,13 +1,15 @@
-package file
+package file_test
 
 import (
 	"io/ioutil"
 	"os"
 	"path"
 	"testing"
+
+	file "github.com/CoachApplication/coach-config/provider/file"
 )
 
-func testScopedPaths() *ScopedFilePaths {
+func testScopedPaths() *file.ScopedFilePaths {
 	workingDir, _ := os.Getwd()
 	rootPathTest := path.Join(workingDir, "test")
 
@@ -17,7 +19,7 @@ func testScopedPaths() *ScopedFilePaths {
 		scopedPaths[scope] = path.Join(rootPathTest, scope)
 	}
 
-	return NewScopedFilePaths(scopes, scopedPaths, "", ".txt")
+	return file.NewScopedFilePaths(scopes, scopedPaths, "", ".txt")
 }
 
 func TestScopedFilePaths_Keys(t *testing.T) {

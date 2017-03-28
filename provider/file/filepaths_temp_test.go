@@ -1,4 +1,4 @@
-package file
+package file_test
 
 import (
 	"io/ioutil"
@@ -6,9 +6,11 @@ import (
 	"strings"
 	"testing"
 	"time"
+
+	file "github.com/CoachApplication/coach-config/provider/file"
 )
 
-func makeSomeTempFiles(t *testing.T, p *TempFilePaths) chan bool {
+func makeSomeTempFiles(t *testing.T, p *file.TempFilePaths) chan bool {
 	names := []string{}
 	for _, key := range []string{"A", "B", "C"} {
 		for _, scope := range []string{"1", "2", "3"} {
@@ -17,7 +19,7 @@ func makeSomeTempFiles(t *testing.T, p *TempFilePaths) chan bool {
 			if f, err := os.Create(path); err == nil {
 				names = append(names, f.Name())
 				t.Logf("Making temp file : %s", f.Name())
-				f.WriteString(strings.Join([]string{key, scope}, DELIM))
+				f.WriteString(strings.Join([]string{key, scope}, file.DELIM))
 				f.Close()
 			}
 
@@ -38,7 +40,7 @@ func makeSomeTempFiles(t *testing.T, p *TempFilePaths) chan bool {
 }
 
 func TestTempFilePaths_Keys(t *testing.T) {
-	ps := NewTempFilePaths("coach-base-filepaths-build", "_keys")
+	ps := file.NewTempFilePaths("coach-base-filepaths-build", "_keys")
 	rem := makeSomeTempFiles(t, ps)
 
 	keys := ps.Keys()
@@ -50,7 +52,7 @@ func TestTempFilePaths_Keys(t *testing.T) {
 }
 
 func TestTempFilePaths_Scopes(t *testing.T) {
-	ps := NewTempFilePaths("coach-base-filepaths-build", "_scopes")
+	ps := file.NewTempFilePaths("coach-base-filepaths-build", "_scopes")
 	rem := makeSomeTempFiles(t, ps)
 
 	scopes := ps.Scopes()
@@ -62,7 +64,7 @@ func TestTempFilePaths_Scopes(t *testing.T) {
 }
 
 func TestTempFilePaths_Path(t *testing.T) {
-	ps := NewTempFilePaths("coach-base-filepaths-build", "_path")
+	ps := file.NewTempFilePaths("coach-base-filepaths-build", "_path")
 	rem := makeSomeTempFiles(t, ps)
 
 	if _, err := ps.Path("no", "no"); err == nil {
@@ -73,7 +75,7 @@ func TestTempFilePaths_Path(t *testing.T) {
 		t.Error("TempFilePaths return an error on a key-scope pair: ", err.Error())
 	} else if contents, err := ioutil.ReadFile(p); err != nil {
 		t.Error("TempFilePaths provided a filename that couldn't be opened: ", err.Error())
-	} else if string(contents) != strings.Join([]string{"A", "1"}, DELIM) {
+	} else if string(contents) != strings.Join([]string{"A", "1"}, file.DELIM) {
 		t.Error("TempFilePath given path had the wrong content", string(contents))
 	}
 

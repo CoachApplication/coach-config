@@ -2,8 +2,9 @@ package yaml
 
 import (
 	"bytes"
-	yaml "gopkg.in/yaml.v2"
 	"io"
+
+	yaml "gopkg.in/yaml.v2"
 
 	api "github.com/CoachApplication/coach-api"
 	base "github.com/CoachApplication/coach-base"

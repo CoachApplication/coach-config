@@ -80,5 +80,6 @@ func (jc *Config) Set(source interface{}) api.Result {
 
 // A simple struct that wraps an io.Reader and adds a Close() to make it a io.ReadCloser
 type readCloserWrapper struct{ io.Reader }
+
 // Close the io.Closer interface method
 func (rcw *readCloserWrapper) Close() error { return nil }
