@@ -9,6 +9,7 @@ import (
 	base "github.com/CoachApplication/coach-base"
 	base_config "github.com/CoachApplication/coach-config"
 	base_config_provider "github.com/CoachApplication/coach-config/provider"
+	utils "github.com/CoachApplication/coach-utils"
 )
 
 type Config struct {
@@ -65,7 +66,7 @@ func (jc *Config) Set(source interface{}) api.Result {
 			res.AddError(err)
 			res.MarkFailed()
 		} else {
-			rc := io.ReadCloser(&readCloserWrapper{Reader: bytes.NewBuffer(b)})
+			rc := io.ReadCloser(utils.CloseDecorateReader(bytes.NewBuffer(b), nil))
 			if err := jc.connector.Set(key, scope, rc); err != nil {
 				res.AddError(err)
 				res.MarkFailed()
@@ -77,9 +78,3 @@ func (jc *Config) Set(source interface{}) api.Result {
 
 	return res.Result()
 }
-
-// A simple struct that wraps an io.Reader and adds a Close() to make it a io.ReadCloser
-type readCloserWrapper struct{ io.Reader }
-
-// Close the io.Closer interface method
-func (rcw *readCloserWrapper) Close() error { return nil }
