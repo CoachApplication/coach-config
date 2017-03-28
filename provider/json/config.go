@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"io"
 
+	"bytes"
 	api "github.com/CoachApplication/coach-api"
 	base "github.com/CoachApplication/coach-base"
 	base_config "github.com/CoachApplication/coach-config"
@@ -16,6 +17,14 @@ type Config struct {
 	scope     string
 }
 
+func NewConfig(key, scope string, con base_config_provider.Connector) *Config {
+	return &Config{
+		key:       key,
+		scope:     scope,
+		connector: con,
+	}
+}
+
 func (jc *Config) Config() base_config.Config {
 	return base_config.Config(jc)
 }
@@ -25,12 +34,10 @@ func (jc *Config) Get(target interface{}) api.Result {
 	res := base.NewResult()
 
 	go func(key, scope string) {
-		defer res.MarkFinished()
 		if rc, err := jc.connector.Get(key, scope); err != nil {
 			res.AddError(err)
 			res.MarkFailed()
 		} else {
-			defer rc.Close()
 			d := json.NewDecoder(rc)
 			if err := d.Decode(target); err != nil {
 				res.AddError(err)
@@ -38,7 +45,9 @@ func (jc *Config) Get(target interface{}) api.Result {
 			} else {
 				res.MarkSucceeded()
 			}
+			rc.Close()
 		}
+		res.MarkFinished()
 	}(jc.key, jc.scope)
 
 	return res.Result()
@@ -51,17 +60,13 @@ func (jc *Config) Set(source interface{}) api.Result {
 
 	go func(key, scope string) {
 		defer res.MarkFinished()
-
-		r, w := io.Pipe() // technically r is a ReaderCloser
-		defer w.Close()   // this we do to be responsible
-		defer r.Close()   // this we do in case the connector isn't responsible
-
-		e := json.NewEncoder(w)
-		if err := e.Encode(source); err != nil {
+		// @TODO should we do this without holding all the bytes in plain memory?
+		if b, err := json.Marshal(source); err != nil {
 			res.AddError(err)
 			res.MarkFailed()
 		} else {
-			if err := jc.connector.Set(key, scope, r); err != nil {
+			rc := io.ReadCloser(&readCloserWrapper{Reader: bytes.NewBuffer(b)})
+			if err := jc.connector.Set(key, scope, rc); err != nil {
 				res.AddError(err)
 				res.MarkFailed()
 			} else {
@@ -72,3 +77,8 @@ func (jc *Config) Set(source interface{}) api.Result {
 
 	return res.Result()
 }
+
+// A simple struct that wraps an io.Reader and adds a Close() to make it a io.ReadCloser
+type readCloserWrapper struct{ io.Reader }
+// Close the io.Closer interface method
+func (rcw *readCloserWrapper) Close() error { return nil }

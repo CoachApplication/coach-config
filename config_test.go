@@ -1,4 +1,4 @@
-package configuration
+package config_test
 
 import (
 	"errors"
@@ -7,6 +7,7 @@ import (
 
 	api "github.com/CoachApplication/coach-api"
 	base "github.com/CoachApplication/coach-base"
+	config "github.com/CoachApplication/coach-config"
 )
 
 /**
@@ -83,8 +84,8 @@ func NewTestStringConfig(t *testing.T, id, val string) *TestStringConfig {
 }
 
 // Config explicitly convert this to an Config interface
-func (tsc *TestStringConfig) Config() Config {
-	return Config(tsc)
+func (tsc *TestStringConfig) Config() config.Config {
+	return config.Config(tsc)
 }
 
 // Marshall gets a configuration and apply it to a target struct

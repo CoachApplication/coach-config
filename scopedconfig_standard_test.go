@@ -1,11 +1,15 @@
-package configuration
+package config_test
 
-import "testing"
+import (
+	"testing"
+
+	config "github.com/CoachApplication/coach-config"
+)
 
 func TestStandardScopedConfig_Get(t *testing.T) {
-	sc := NewStandardScopedConfig().ScopedConfig()
+	sc := config.NewStandardScopedConfig().ScopedConfig()
 
-	sc.Set("one", NewTestStringConfig(t, "one","one").Config())
+	sc.Set("one", NewTestStringConfig(t, "one", "one").Config())
 
 	if c, err := sc.Get("one"); err != nil {
 		t.Error("ScopedConfig didn't retrieve the assigned Config")
@@ -19,9 +23,9 @@ func TestStandardScopedConfig_Get(t *testing.T) {
 }
 
 func TestStandardScopedConfig_Set(t *testing.T) {
-	sc := NewStandardScopedConfig().ScopedConfig()
+	sc := config.NewStandardScopedConfig().ScopedConfig()
 
-	sc.Set("one", NewTestStringConfig(t, "one","one").Config())
+	sc.Set("one", NewTestStringConfig(t, "one", "one").Config())
 
 	if c, err := sc.Get("one"); err != nil {
 		t.Error("ScopedConfig didn't retrieve the assigned Config")
@@ -33,8 +37,8 @@ func TestStandardScopedConfig_Set(t *testing.T) {
 		}
 	}
 
-	sc.Set("two", NewTestStringConfig(t, "two","two").Config())
-	sc.Set("two", NewTestStringConfig(t, "nexttwo","nexttwo").Config())
+	sc.Set("two", NewTestStringConfig(t, "two", "two").Config())
+	sc.Set("two", NewTestStringConfig(t, "nexttwo", "nexttwo").Config())
 
 	if c, err := sc.Get("two"); err != nil {
 		t.Error("ScopedConfig didn't retrieve the assigned Config")
@@ -49,12 +53,10 @@ func TestStandardScopedConfig_Set(t *testing.T) {
 	}
 }
 
-
-
 func TestStandardScopedConfig_List(t *testing.T) {
-	sc := NewStandardScopedConfig().ScopedConfig()
+	sc := config.NewStandardScopedConfig().ScopedConfig()
 
-	sc.Set("one", NewTestStringConfig(t, "one","one").Config())
+	sc.Set("one", NewTestStringConfig(t, "one", "one").Config())
 	sc.Set("two", NewTestStringConfig(t, "two", "two").Config()) // overwrite the previous one
 	sc.Set("three", NewTestStringConfig(t, "three", "three").Config())
 

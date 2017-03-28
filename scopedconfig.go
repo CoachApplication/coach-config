@@ -1,4 +1,4 @@
-package configuration
+package config
 
 // ScopedConfig An object which can provide scoped config objects
 type ScopedConfig interface {

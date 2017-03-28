@@ -1,9 +1,14 @@
-package provider
+package provider_test
 
-import "testing"
+import (
+	"testing"
 
-func testBackendConfigProvider(t *testing.T) *BackendConfigProvider {
-	tbcp := NewBackendConfigProvider()
+	config_provider "github.com/CoachApplication/coach-config/provider"
+	utils "github.com/CoachApplication/coach-utils"
+)
+
+func testBackendConfigProvider(t *testing.T) *config_provider.BackendConfigProvider {
+	tbcp := config_provider.NewBackendConfigProvider()
 	tbcp.Add(NewTestBackend(t, "A", "B", "AB").Backend())
 	tbcp.Add(NewTestBackend(t, "A", "C", "AC").Backend())
 	tbcp.Add(NewTestBackend(t, "B", "D", "BD").Backend())
@@ -101,11 +106,11 @@ func sliceHasValue(s []string, val string) bool {
 
 // We use the unique string slice in the backend provider, so we should test that it works
 func Test_uniqueStringSlice(t *testing.T) {
-	s := uniqueStringSlice{}
+	s := utils.UniqueStringSlice{}
 
 	// test adding strings
-	s.add("A")
-	sl1 := s.slice()
+	s.Add("A")
+	sl1 := s.Slice()
 	if len(sl1) != 1 {
 		t.Error("uniqueStringSlice did not properly add a value")
 	} else if sl1[0] != "A" {
@@ -113,9 +118,9 @@ func Test_uniqueStringSlice(t *testing.T) {
 	}
 
 	// test adding further
-	s.add("B")
-	s.add("C")
-	sl2 := s.slice()
+	s.Add("B")
+	s.Add("C")
+	sl2 := s.Slice()
 	if len(sl2) != 3 {
 		t.Error("uniqueStringSlice did not properly add a value")
 	} else if sl2[0] != "A" || sl2[1] != "B" || sl2[2] != "C" {
@@ -123,8 +128,8 @@ func Test_uniqueStringSlice(t *testing.T) {
 	}
 
 	// test unique values
-	s.add("A")
-	sl3 := s.slice()
+	s.Add("A")
+	sl3 := s.Slice()
 	if len(sl3) != 3 {
 		t.Error("uniqueStringSlice improperly added a duplicate value")
 	}

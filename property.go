@@ -1,11 +1,11 @@
-package configuration
+package config
 
 import (
+	"errors"
 	api "github.com/CoachApplication/coach-api"
 	base "github.com/CoachApplication/coach-base"
 	base_errors "github.com/CoachApplication/coach-base/errors"
 	base_property "github.com/CoachApplication/coach-base/property"
-	"errors"
 )
 
 const (

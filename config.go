@@ -1,4 +1,4 @@
-package configuration
+package config
 
 import (
 	api "github.com/CoachApplication/coach-api"

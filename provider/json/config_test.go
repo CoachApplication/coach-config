@@ -1,10 +1,10 @@
-package json
+package json_test
 
 import (
 	"testing"
 
-	coach_config_provider "github.com/CoachApplication/coach-config/provider"
-	coach_config_provider_bufferred "github.com/CoachApplication/coach-config/provider/bufferred"
+	config_provider_buffered "github.com/CoachApplication/coach-config/provider/buffered"
+	config_provider_json "github.com/CoachApplication/coach-config/provider/json"
 )
 
 // @TODO add more complex JSON data to test
@@ -25,16 +25,40 @@ type Message struct {
 }
 
 func TestJsonConfig_Get(t *testing.T) {
-	jb := &Backend{
-		connector: coach_config_provider_bufferred.NewBufferedConnector("key", "scope", MessageBytes),
-		usage:     &coach_config_provider.AllBackendUsage{},
+	c := config_provider_json.NewConfig("key", "scope", config_provider_buffered.NewConnector("key", "scope", MessageBytes))
+
+	var m Message
+	res := c.Get(&m)
+	<-res.Finished()
+
+	if !res.Success() {
+		t.Error("Backend Config reported failure in Get() : ", res.Errors())
+	} else {
+
+		if m.Name != MessageStruct.Name {
+			t.Error("Backend provided incorrect data ==> Name : ", m.Name)
+		}
+		if m.Body != MessageStruct.Body {
+			t.Error("Backend provided incorrect data ==> Body : ", m.Body)
+		}
+		if m.Time != MessageStruct.Time {
+			t.Error("Backend provided incorrect data ==> Time : ", m.Time)
+		}
+
 	}
 
-	if !jb.Handles("key", "scope") {
-		t.Error("Backend didn't Handle() properly")
-	} else if c, err := jb.Get("key", "scope"); err != nil {
-		t.Error("Backend gave an error when retreiving valid key-scope Config")
+}
+
+func TestJsonConfig_Set(t *testing.T) {
+	c := config_provider_json.NewConfig("key", "scope", config_provider_buffered.NewConnector("key", "scope", MessageBytes))
+
+	res := c.Set(MessageStruct)
+	<-res.Finished()
+
+	if !res.Success() {
+		t.Error("Backend Config reported a failure when Set(): ", res.Errors())
 	} else {
+
 		var m Message
 		res := c.Get(&m)
 		<-res.Finished()
@@ -54,28 +78,7 @@ func TestJsonConfig_Get(t *testing.T) {
 			}
 
 		}
-	}
-}
 
-func TestJsonConfig_Set(t *testing.T) {
-	con := coach_config_provider_bufferred.NewBufferedConnector("key", "scope", []byte{})
-	jb := &Backend{
-		connector: con,
-		usage:     &coach_config_provider.AllBackendUsage{},
 	}
 
-	if !jb.Handles("key", "scope") {
-		t.Error("Backend didn't Handle() properly")
-	} else if c, err := jb.Get("key", "scope"); err != nil {
-		t.Error("Backend gave an error when retreiving valid key-scope Config")
-	} else {
-		res := c.Set(MessageStruct)
-		//<-res.Finished()
-
-		if !res.Success() {
-			t.Error("Backend Config reported a failure when Set(): ", res.Errors())
-		} else {
-
-		}
-	}
 }

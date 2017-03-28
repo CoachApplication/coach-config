@@ -1,0 +1,4 @@
+[submodule "gpkg.yaml.v2"]
+	path = provider/yaml/vendor/gopkg.in/yaml.v2
+	url = https://gopkg.in/yaml.v2
+	branch = v2

@@ -1,4 +1,4 @@
-package provider
+package provider_test
 
 import (
 	"errors"
@@ -7,7 +7,8 @@ import (
 
 	api "github.com/CoachApplication/coach-api"
 	base "github.com/CoachApplication/coach-base"
-	base_config "github.com/CoachApplication/coach-config"
+	config "github.com/CoachApplication/coach-config"
+	config_provider "github.com/CoachApplication/coach-config/provider"
 )
 
 /**
@@ -90,8 +91,8 @@ func NewTestBackend(t *testing.T, key string, scope string, val string) *TestBac
 }
 
 // Backend Explicitly convert this to a Backend interface
-func (tb *TestBackend) Backend() Backend {
-	return Backend(tb)
+func (tb *TestBackend) Backend() config_provider.Backend {
+	return config_provider.Backend(tb)
 }
 
 // Handles answers whether or not this Backend handles that passed key-scope pair
@@ -110,7 +111,7 @@ func (tb *TestBackend) Keys() []string {
 }
 
 // Get retrieve a Config for a key-scope pair
-func (tb *TestBackend) Get(key, scope string) (base_config.Config, error) {
+func (tb *TestBackend) Get(key, scope string) (config.Config, error) {
 	if key == tb.key && scope == tb.scope {
 		return NewTestStringConfig(tb.t, tb.key+"-"+tb.scope, tb.val).Config(), nil
 	} else {
@@ -119,7 +120,7 @@ func (tb *TestBackend) Get(key, scope string) (base_config.Config, error) {
 }
 
 /**
- * This is copied directly from the base_config
+ * This is copied directly from the config - there are tests there
  */
 
 // TestConfig A testing Config implementation
@@ -139,8 +140,8 @@ func NewTestStringConfig(t *testing.T, id, val string) *TestStringConfig {
 }
 
 // Config explicitly convert this to an Config interface
-func (tsc *TestStringConfig) Config() base_config.Config {
-	return base_config.Config(tsc)
+func (tsc *TestStringConfig) Config() config.Config {
+	return config.Config(tsc)
 }
 
 // Marshall gets a configuration and apply it to a target struct

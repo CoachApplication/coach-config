@@ -3,7 +3,7 @@ package yaml
 import (
 	"testing"
 
-	coach_config_provider_bufferred "github.com/CoachApplication/coach-config/provider/bufferred"
+	config_provider_buffered "github.com/CoachApplication/coach-config/provider/buffered"
 )
 
 // Message JSON bytes
@@ -24,8 +24,7 @@ type Message struct {
 }
 
 func TestConfig_Get(t *testing.T) {
-	conn := coach_config_provider_bufferred.NewBufferedConnector("key", "scope", MessageBytes)
-	c := NewConfig("key", "scope", conn)
+	c := NewConfig("key", "scope", config_provider_buffered.NewConnector("key", "scope", MessageBytes))
 
 	var m Message
 	res := c.Get(&m)
@@ -50,8 +49,7 @@ func TestConfig_Get(t *testing.T) {
 }
 
 func TestConfig_Set(t *testing.T) {
-	conn := coach_config_provider_bufferred.NewBufferedConnector("key", "scope", []byte{})
-	c := NewConfig("key", "scope", conn)
+	c := NewConfig("key", "scope", config_provider_buffered.NewConnector("key", "scope", []byte{}))
 
 	res := c.Set(MessageStruct)
 	<-res.Finished()

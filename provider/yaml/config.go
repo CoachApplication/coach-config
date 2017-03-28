@@ -67,7 +67,7 @@ func (ycc *Config) Set(source interface{}) api.Result {
 
 	go func(key, scope string, con base_config_provider.Connector) {
 		defer res.MarkFinished()
-
+		// @TODO should we do this without holding all the bytes in plain memory?
 		if b, err := yaml.Marshal(source); err != nil {
 			res.AddError(err)
 			res.MarkFailed()
@@ -84,3 +84,9 @@ func (ycc *Config) Set(source interface{}) api.Result {
 
 	return res.Result()
 }
+
+// A simple struct that wraps an io.Reader and adds a Close() to make it a io.ReadCloser
+type readCloserWrapper struct{ io.Reader }
+
+// Close the io.Closer interface method
+func (rcw *readCloserWrapper) Close() error { return nil }
