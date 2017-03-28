@@ -27,6 +27,9 @@ func (tc *Connector) Scopes() []string {
 func (tc *Connector) Keys() []string {
 	return []string{tc.key}
 }
+func (tc *Connector) HasValue(key, scope string) bool {
+	return key == tc.key && scope == tc.scope
+}
 func (tc *Connector) Get(key, scope string) (io.ReadCloser, error) {
 	if key == tc.key && scope == tc.scope {
 		return io.ReadCloser(&BufferCloser{Buffer: *bytes.NewBuffer(tc.val)}), nil

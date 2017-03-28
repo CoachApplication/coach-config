@@ -1,5 +1,9 @@
 package config
 
+const (
+	CONFIG_SCOPE_DEFAULT = "<default>"
+)
+
 // ScopedConfig An object which can provide scoped config objects
 type ScopedConfig interface {
 	// Get a Config for a scope

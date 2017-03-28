@@ -1,6 +1,7 @@
 package config
 
 import (
+	"errors"
 	"fmt"
 )
 
@@ -23,17 +24,34 @@ func (sc *StandardScopedConfig) ScopedConfig() ScopedConfig {
 // Get a Config for a scope
 func (sc *StandardScopedConfig) Get(scope string) (Config, error) {
 	sc.safe()
-	config, exists := sc.cMap[scope]
-	if exists {
-		return config, nil
+
+	if scope == CONFIG_SCOPE_DEFAULT {
+		for _, s := range sc.Order() {
+			c, _ := sc.cMap[s]
+			if c.HasValue() {
+				return c, nil
+			}
+		}
 	} else {
-		return config, error(ConfigScopeNotFoundError{Scope: scope})
+		c, exists := sc.cMap[scope]
+		if exists {
+			return c, nil
+		}
 	}
+	return _, error(ConfigScopeNotFoundError{Scope: scope})
 }
 
 // Set uses a passed Config to set a value to a scope
 func (sc *StandardScopedConfig) Set(scope string, config Config) error {
 	sc.safe()
+
+	if scope == CONFIG_SCOPE_DEFAULT {
+		if len(sc.cOrder) == 0 {
+			return errors.New("Could not write to default scope as no scopes are defined.")
+		}
+		scope = sc.cOrder[0]
+	}
+
 	if _, exists := sc.cMap[scope]; !exists {
 		sc.cOrder = append(sc.cOrder, scope)
 	}

@@ -31,6 +31,16 @@ func (fc *FileConnector) Keys() []string {
 	return fc.filepaths.Keys()
 }
 
+func (fc *FileConnector) HasValue(key, scope string) bool {
+	if path, err := fc.filepaths.Path(key, scope); err != nil {
+		return false
+	} else if _, err := os.Stat(path); os.IsNotExist(err) {
+		return false
+	} else {
+		return true
+	}
+}
+
 func (fc *FileConnector) Get(key, scope string) (io.ReadCloser, error) {
 	if path, err := fc.filepaths.Path(key, scope); err != nil {
 		return nil, err
