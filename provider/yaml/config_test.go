@@ -3,7 +3,7 @@ package yaml
 import (
 	"testing"
 
-	config_provider_buffered "github.com/CoachApplication/coach-config/provider/buffered"
+	config_provider_buffered "github.com/CoachApplication/config/provider/buffered"
 )
 
 // Message JSON bytes

@@ -2,10 +2,10 @@ package config
 
 import (
 	"errors"
-	api "github.com/CoachApplication/coach-api"
-	base "github.com/CoachApplication/coach-base"
-	base_errors "github.com/CoachApplication/coach-base/errors"
-	base_property "github.com/CoachApplication/coach-base/property"
+	api "github.com/CoachApplication/api"
+	base "github.com/CoachApplication/base"
+	base_errors "github.com/CoachApplication/base/errors"
+	base_property "github.com/CoachApplication/base/property"
 )
 
 const (

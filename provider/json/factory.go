@@ -1,8 +1,8 @@
 package json
 
 import (
-	base_config "github.com/CoachApplication/coach-config"
-	base_config_provider "github.com/CoachApplication/coach-config/provider"
+	base_config "github.com/CoachApplication/config"
+	base_config_provider "github.com/CoachApplication/config/provider"
 )
 
 type Factory struct {

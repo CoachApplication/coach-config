@@ -3,8 +3,8 @@ package json_test
 import (
 	"testing"
 
-	config_provider_buffered "github.com/CoachApplication/coach-config/provider/buffered"
-	config_provider_json "github.com/CoachApplication/coach-config/provider/json"
+	config_provider_buffered "github.com/CoachApplication/config/provider/buffered"
+	config_provider_json "github.com/CoachApplication/config/provider/json"
 )
 
 // @TODO add more complex JSON data to test

@@ -5,11 +5,11 @@ import (
 	"io"
 
 	"bytes"
-	api "github.com/CoachApplication/coach-api"
-	base "github.com/CoachApplication/coach-base"
-	base_config "github.com/CoachApplication/coach-config"
-	base_config_provider "github.com/CoachApplication/coach-config/provider"
-	utils "github.com/CoachApplication/coach-utils"
+	api "github.com/CoachApplication/api"
+	base "github.com/CoachApplication/base"
+	base_config "github.com/CoachApplication/config"
+	base_config_provider "github.com/CoachApplication/config/provider"
+	utils "github.com/CoachApplication/utils"
 )
 
 type Config struct {

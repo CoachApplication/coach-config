@@ -4,7 +4,7 @@ import (
 	"io"
 	"os"
 
-	base_config_provider "github.com/CoachApplication/coach-config/provider"
+	base_config_provider "github.com/CoachApplication/config/provider"
 )
 
 // FileConnector is a ConfigProvider Connector that pulls config data from files.

@@ -1,8 +1,13 @@
 package config
 
 import (
-	coach_api "github.com/CoachApplication/coach-api"
-	coach_base "github.com/CoachApplication/coach-base"
+	coach_api "github.com/CoachApplication/api"
+	coach_base "github.com/CoachApplication/base"
+)
+
+const (
+	OPERATION_ID_GET  = "config.get"
+	OPERATION_ID_LIST = "config.list"
 )
 
 // GetOperation Operation that retrieves a single ScopedConfig for a config Key
@@ -10,7 +15,7 @@ type GetOperationBase struct{}
 
 // Id Provide a unique machine name string
 func (gob *GetOperationBase) Id() string {
-	return "config.get"
+	return OPERATION_ID_GET
 }
 
 // Usage Define UI metadata for the Operation
@@ -45,7 +50,7 @@ type ListOperationBase struct{}
 
 // Id Provide a unique machine name string
 func (lob *ListOperationBase) Id() string {
-	return "config.get"
+	return OPERATION_ID_LIST
 }
 
 // Usage Define UI metadata for the Operation

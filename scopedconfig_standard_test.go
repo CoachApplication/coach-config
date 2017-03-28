@@ -3,7 +3,7 @@ package config_test
 import (
 	"testing"
 
-	config "github.com/CoachApplication/coach-config"
+	config "github.com/CoachApplication/config"
 )
 
 func TestStandardScopedConfig_Get(t *testing.T) {

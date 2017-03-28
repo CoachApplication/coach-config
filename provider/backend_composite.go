@@ -1,7 +1,7 @@
 package provider
 
 import (
-	base_config "github.com/CoachApplication/coach-config"
+	base_config "github.com/CoachApplication/config"
 )
 
 /**

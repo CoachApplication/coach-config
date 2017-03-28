@@ -7,7 +7,7 @@ import (
 	"path"
 	"strings"
 
-	coach_utils "github.com/CoachApplication/coach-utils"
+	coach_utils "github.com/CoachApplication/utils"
 )
 
 const DELIM = "_"

@@ -6,7 +6,7 @@ import (
 	"path"
 	"testing"
 
-	file "github.com/CoachApplication/coach-config/provider/file"
+	file "github.com/CoachApplication/config/provider/file"
 )
 
 func testScopedPaths() *file.ScopedFilePaths {

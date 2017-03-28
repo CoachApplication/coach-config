@@ -7,7 +7,7 @@ import (
 	"testing"
 	"time"
 
-	file "github.com/CoachApplication/coach-config/provider/file"
+	file "github.com/CoachApplication/config/provider/file"
 )
 
 func makeSomeTempFiles(t *testing.T, p *file.TempFilePaths) chan bool {

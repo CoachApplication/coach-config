@@ -5,9 +5,9 @@ import (
 	"reflect"
 	"testing"
 
-	api "github.com/CoachApplication/coach-api"
-	base "github.com/CoachApplication/coach-base"
-	config "github.com/CoachApplication/coach-config"
+	api "github.com/CoachApplication/api"
+	base "github.com/CoachApplication/base"
+	config "github.com/CoachApplication/config"
 )
 
 /**

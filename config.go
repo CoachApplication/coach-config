@@ -1,7 +1,7 @@
 package config
 
 import (
-	api "github.com/CoachApplication/coach-api"
+	api "github.com/CoachApplication/api"
 )
 
 // Config encapsulation of configuration

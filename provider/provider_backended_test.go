@@ -3,8 +3,8 @@ package provider_test
 import (
 	"testing"
 
-	config_provider "github.com/CoachApplication/coach-config/provider"
-	utils "github.com/CoachApplication/coach-utils"
+	config_provider "github.com/CoachApplication/config/provider"
+	utils "github.com/CoachApplication/utils"
 )
 
 func testBackendConfigProvider(t *testing.T) *config_provider.BackendConfigProvider {
