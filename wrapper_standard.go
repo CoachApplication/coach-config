@@ -29,6 +29,6 @@ func (sw *StandardWrapper) Get(key string) (ScopedConfig, error) {
 	return nil, nil
 }
 
-func (sw *StandardWrapper) List(key string) ([]string, error) {
+func (sw *StandardWrapper) List() ([]string, error) {
 	return []string{}, nil
 }

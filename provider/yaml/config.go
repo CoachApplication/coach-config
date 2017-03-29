@@ -33,8 +33,8 @@ func (ycc *Config) Config() base_config.Config {
 	return base_config.Config(ycc)
 }
 
-func (ycc *Config) HasValue(key, scope string) bool {
-	return ycc.connector.HasValue(key, scope)
+func (ycc *Config) HasValue() bool {
+	return ycc.connector.HasValue(ycc.key, ycc.scope)
 }
 
 // Marshall gets a configuration and apply it to a target struct
