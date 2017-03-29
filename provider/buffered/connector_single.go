@@ -3,41 +3,42 @@ package buffered
 import (
 	"bytes"
 	"errors"
+	"github.com/CoachApplication/utils"
 	"io"
 )
 
 // A testing connector that runs from a buffered slice of bytes
-type Connector struct {
+type Single struct {
 	key   string
 	scope string
 	val   []byte
 }
 
-func NewConnector(key, scope string, val []byte) *Connector {
-	return &Connector{
+func NewSingle(key, scope string, val []byte) *Single {
+	return &Single{
 		key:   key,
 		scope: scope,
 		val:   val,
 	}
 }
 
-func (tc *Connector) Scopes() []string {
+func (tc *Single) Scopes() []string {
 	return []string{tc.scope}
 }
-func (tc *Connector) Keys() []string {
+func (tc *Single) Keys() []string {
 	return []string{tc.key}
 }
-func (tc *Connector) HasValue(key, scope string) bool {
+func (tc *Single) HasValue(key, scope string) bool {
 	return key == tc.key && scope == tc.scope
 }
-func (tc *Connector) Get(key, scope string) (io.ReadCloser, error) {
+func (tc *Single) Get(key, scope string) (io.ReadCloser, error) {
 	if key == tc.key && scope == tc.scope {
-		return io.ReadCloser(&BufferCloser{Buffer: *bytes.NewBuffer(tc.val)}), nil
+		return utils.CloseDecorateReader(io.Reader(bytes.NewBuffer(tc.val)), nil), nil
 	} else {
 		return nil, errors.New("Wrong key scope") // @TODO make a custom error for this
 	}
 }
-func (tc *Connector) Set(key, scope string, source io.ReadCloser) error {
+func (tc *Single) Set(key, scope string, source io.ReadCloser) error {
 	buf := bytes.NewBuffer([]byte{})
 	if _, err := buf.ReadFrom(source); err != nil {
 		return err
@@ -46,13 +47,5 @@ func (tc *Connector) Set(key, scope string, source io.ReadCloser) error {
 	if err := source.Close(); err != nil {
 		return err
 	}
-	return nil
-}
-
-type BufferCloser struct {
-	bytes.Buffer
-}
-
-func (bc *BufferCloser) Close() error {
 	return nil
 }
