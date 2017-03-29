@@ -22,7 +22,7 @@ func (gon *GetOperation) Operation() api.Operation {
 	return api.Operation(gon)
 }
 
-func (gon *GetOperation) Validate() api.Result {
+func (gon *GetOperation) Validate(props api.Properties) api.Result {
 	return base.MakeSuccessfulResult()
 }
 
@@ -75,7 +75,7 @@ func (lo *ListOperation) Operation() api.Operation {
 	return api.Operation(lo)
 }
 
-func (lo *ListOperation) Validate() api.Result {
+func (lo *ListOperation) Validate(props api.Properties) api.Result {
 	return base.MakeSuccessfulResult()
 }
 
