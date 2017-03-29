@@ -24,7 +24,7 @@ type Message struct {
 }
 
 func TestConfig_Get(t *testing.T) {
-	c := NewConfig("key", "scope", config_provider_buffered.NewConnector("key", "scope", MessageBytes))
+	c := NewConfig("key", "scope", config_provider_buffered.NewSingle("key", "scope", MessageBytes))
 
 	var m Message
 	res := c.Get(&m)
@@ -49,7 +49,7 @@ func TestConfig_Get(t *testing.T) {
 }
 
 func TestConfig_Set(t *testing.T) {
-	c := NewConfig("key", "scope", config_provider_buffered.NewConnector("key", "scope", []byte{}))
+	c := NewConfig("key", "scope", config_provider_buffered.NewSingle("key", "scope", []byte{}))
 
 	res := c.Set(MessageStruct)
 	<-res.Finished()

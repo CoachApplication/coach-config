@@ -25,7 +25,7 @@ type Message struct {
 }
 
 func TestJsonConfig_Get(t *testing.T) {
-	c := config_provider_json.NewConfig("key", "scope", config_provider_buffered.NewConnector("key", "scope", MessageBytes))
+	c := config_provider_json.NewConfig("key", "scope", config_provider_buffered.NewSingle("key", "scope", MessageBytes))
 
 	var m Message
 	res := c.Get(&m)
@@ -50,7 +50,7 @@ func TestJsonConfig_Get(t *testing.T) {
 }
 
 func TestJsonConfig_Set(t *testing.T) {
-	c := config_provider_json.NewConfig("key", "scope", config_provider_buffered.NewConnector("key", "scope", MessageBytes))
+	c := config_provider_json.NewConfig("key", "scope", config_provider_buffered.NewSingle("key", "scope", MessageBytes))
 
 	res := c.Set(MessageStruct)
 	<-res.Finished()
