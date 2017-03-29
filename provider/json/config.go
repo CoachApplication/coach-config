@@ -30,8 +30,19 @@ func (jc *Config) Config() base_config.Config {
 	return base_config.Config(jc)
 }
 
-func (jc *Config) HasValue() bool {
-	return jc.connector.HasValue(jc.key, jc.scope)
+func (jc *Config) HasValue() api.Result {
+	res := base.NewResult()
+
+	go func(con base_config_provider.Connector, key, scope string) {
+		if con.HasValue(key, scope) {
+			res.MarkSucceeded()
+		} else {
+			res.MarkFailed()
+		}
+		res.MarkFinished()
+	}(jc.connector, jc.key, jc.scope)
+
+	return res.Result()
 }
 
 // Marshall gets a configuration and apply it to a target struct

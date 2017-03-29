@@ -6,8 +6,8 @@ import (
 
 // Config encapsulation of configuration
 type Config interface {
-	// HasValue does this Config already have data
-	HasValue() bool
+	// HasValue does this Config already have data, use the api.Result Success() to indicate that a value exists
+	HasValue() api.Result
 	// Marshall gets a configuration and apply it to a target struct
 	Get(interface{}) api.Result
 	// UnMarshall sets a Config value by converting a passed struct into a configuration

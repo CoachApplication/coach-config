@@ -7,11 +7,13 @@ import (
 	api "github.com/CoachApplication/api"
 )
 
+// A Wrapper implementation that runs from a set of operations, and limits all methods based on a passed context
 type StandardWrapper struct {
 	ctx context.Context
 	ops api.Operations
 }
 
+// StandardWrapper constructor for StandardWrapper
 func NewStandardWrapper(ops api.Operations, ctx context.Context) *StandardWrapper {
 	if ctx == nil {
 		ctx = context.Background()
@@ -22,6 +24,7 @@ func NewStandardWrapper(ops api.Operations, ctx context.Context) *StandardWrappe
 	}
 }
 
+// Wrapper Explicitly convert this to a config Wrapper interface
 func (sw *StandardWrapper) Wrapper() Wrapper {
 	return Wrapper(sw)
 }

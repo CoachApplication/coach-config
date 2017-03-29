@@ -88,10 +88,13 @@ func (tsc *TestStringConfig) Config() config.Config {
 	return config.Config(tsc)
 }
 
-
 // HasValue indicate if the Config has a value already
-func (tsc *TestStringConfig) HasValue() bool {
-	return tsc.val != ""
+func (tsc *TestStringConfig) HasValue() api.Result {
+	if tsc.val == "" {
+		return base.MakeFailedResult()
+	} else {
+		return base.MakeSuccessfulResult()
+	}
 }
 
 // Marshall gets a configuration and apply it to a target struct

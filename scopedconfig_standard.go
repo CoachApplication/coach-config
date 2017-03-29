@@ -28,7 +28,9 @@ func (sc *StandardScopedConfig) Get(scope string) (Config, error) {
 	if scope == CONFIG_SCOPE_DEFAULT {
 		for _, s := range sc.Order() {
 			c, _ := sc.cMap[s]
-			if c.HasValue() {
+			res := c.HasValue()
+			<-res.Finished()
+			if res.Success() {
 				return c, nil
 			}
 		}

@@ -33,8 +33,19 @@ func (ycc *Config) Config() base_config.Config {
 	return base_config.Config(ycc)
 }
 
-func (ycc *Config) HasValue() bool {
-	return ycc.connector.HasValue(ycc.key, ycc.scope)
+func (ycc *Config) HasValue() api.Result {
+	res := base.NewResult()
+
+	go func(con base_config_provider.Connector, key, scope string) {
+		if con.HasValue(key, scope) {
+			res.MarkSucceeded()
+		} else {
+			res.MarkFailed()
+		}
+		res.MarkFinished()
+	}(ycc.connector, ycc.key, ycc.scope)
+
+	return res.Result()
 }
 
 // Marshall gets a configuration and apply it to a target struct
