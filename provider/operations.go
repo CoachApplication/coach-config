@@ -29,26 +29,33 @@ func (gon *GetOperation) Validate() api.Result {
 func (gon *GetOperation) Exec(props api.Properties) api.Result {
 	res := base.NewResult()
 
-	key := ""
-	if keyProp, err := props.Get(base_config.PROPERTY_KEY_KEY); err == nil {
-		key = keyProp.Get().(string)
-	} else {
-		res.AddError(err)
-		res.AddError(base_errors.RequiredPropertyWasEmptyError{Key: base_config.PROPERTY_KEY_KEY})
-	}
+	go func(props api.Properties) {
+		if keyProp, err := props.Get(base_config.PROPERTY_ID_KEY); err == nil {
+			key := keyProp.Get().(string)
 
-	scopedConfig := base_config.NewStandardScopedConfig()
-	for _, scope := range gon.provider.Scopes() {
-		if config, err := gon.provider.Get(key, scope); err == nil {
-			scopedConfig.Set(scope, config)
+			scopedConfig := base_config.NewStandardScopedConfig()
+			for _, scope := range gon.provider.Scopes() {
+				if config, err := gon.provider.Get(key, scope); err == nil {
+					scopedConfig.Set(scope, config)
+				} else {
+					res.AddError(err)
+				}
+			}
+
+			scopedConfigProp := base_config.ScopedConfigProperty{}
+			scopedConfigProp.Set(scopedConfig)
+			res.AddProperty(api.Property(&scopedConfigProp))
+
+			res.MarkSucceeded()
 		} else {
 			res.AddError(err)
-		}
-	}
+			res.AddError(base_errors.RequiredPropertyWasEmptyError{Key: base_config.PROPERTY_ID_KEY})
 
-	scopedConfigProp := base_config.ScopedConfigProperty{}
-	scopedConfigProp.Set(scopedConfig)
-	res.AddProperty(api.Property(&scopedConfigProp))
+			res.MarkFailed()
+		}
+
+		res.MarkFinished()
+	}(props)
 
 	return res.Result()
 }
@@ -75,26 +82,16 @@ func (lo *ListOperation) Validate() api.Result {
 func (lo *ListOperation) Exec(props api.Properties) api.Result {
 	res := base.NewResult()
 
-	key := ""
-	if keyProp, err := props.Get(base_config.PROPERTY_KEY_KEY); err == nil {
-		key = keyProp.Get().(string)
-	} else {
-		res.AddError(err)
-		res.AddError(base_errors.RequiredPropertyWasEmptyError{Key: base_config.PROPERTY_KEY_KEY})
-	}
+	func(props api.Properties) {
+		keys := lo.provider.Keys()
 
-	scopedConfig := base_config.NewStandardScopedConfig()
-	for _, scope := range lo.provider.Scopes() {
-		if config, err := lo.provider.Get(key, scope); err == nil {
-			scopedConfig.Set(scope, config)
-		} else {
-			res.AddError(err)
-		}
-	}
+		keysProp := base_config.KeysProperty{}
+		keysProp.Set(keys)
+		res.AddProperty(api.Property(&keysProp))
+		res.MarkSucceeded()
 
-	scopedConfigProp := base_config.ScopedConfigProperty{}
-	scopedConfigProp.Set(scopedConfig)
-	res.AddProperty(api.Property(&scopedConfigProp))
+		res.MarkFinished()
+	}(props)
 
 	return res.Result()
 }

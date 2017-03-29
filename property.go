@@ -9,11 +9,11 @@ import (
 )
 
 const (
-	PROPERTY_KEY_KEY          = "config.key"
-	PROPERTY_KEY_KEYS         = "config.keys"
-	PROPERTY_KEY_SCOPE        = "config.scope"
-	PROPERTY_KEY_SCOPES       = "config.scopes"
-	PROPERTY_KEY_SCOPEDCONFIG = "config.scopedconfig"
+	PROPERTY_ID_KEY          = "config.key"
+	PROPERTY_ID_KEYS         = "config.keys"
+	PROPERTY_ID_SCOPE        = "config.scope"
+	PROPERTY_ID_SCOPES       = "config.scopes"
+	PROPERTY_ID_SCOPEDCONFIG = "config.scopedconfig"
 )
 
 // KeyProperty holds a string config key
@@ -23,7 +23,7 @@ type KeyProperty struct {
 
 // Id Identify the property
 func (kp *KeyProperty) Id() string {
-	return PROPERTY_KEY_KEY
+	return PROPERTY_ID_KEY
 }
 
 // Ui Provide UI metadata for the Property
@@ -48,7 +48,7 @@ type KeysProperty struct {
 
 // Id Identify the property
 func (kp *KeysProperty) Id() string {
-	return PROPERTY_KEY_KEYS
+	return PROPERTY_ID_KEYS
 }
 
 // Ui Provide UI metadata for the Property
@@ -73,7 +73,7 @@ type ScopeProperty struct {
 
 // Id Identify the property
 func (sp *ScopeProperty) Id() string {
-	return PROPERTY_KEY_SCOPE
+	return PROPERTY_ID_SCOPE
 }
 
 // Ui Provide UI metadata for the Property
@@ -98,7 +98,7 @@ type ScopedConfigProperty struct {
 
 // Id Identify the property
 func (scp *ScopedConfigProperty) Id() string {
-	return PROPERTY_KEY_SCOPEDCONFIG
+	return PROPERTY_ID_SCOPEDCONFIG
 }
 
 // Id Identify the property
