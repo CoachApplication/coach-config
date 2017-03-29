@@ -38,7 +38,7 @@ func (sc *StandardScopedConfig) Get(scope string) (Config, error) {
 			return c, nil
 		}
 	}
-	return _, error(ConfigScopeNotFoundError{Scope: scope})
+	return nil, error(ConfigScopeNotFoundError{Scope: scope})
 }
 
 // Set uses a passed Config to set a value to a scope
