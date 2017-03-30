@@ -1,7 +1,6 @@
 package config
 
 import (
-	"errors"
 	api "github.com/CoachApplication/api"
 	base "github.com/CoachApplication/base"
 	base_errors "github.com/CoachApplication/base/errors"
@@ -122,16 +121,8 @@ func (scp *ScopedConfigProperty) Usage() api.Usage {
 }
 
 // Validate That the property contains a valid value
-func (scp *ScopedConfigProperty) Validate() api.Result {
-	res := base.NewResult()
-
-	if scp.value == nil {
-		res.AddError(errors.New("No ScopedConfig Value has been set"))
-		res.MarkFailed()
-	}
-
-	res.MarkFinished()
-	return res.Result()
+func (scp *ScopedConfigProperty) Validate() bool {
+	return scp.value != nil
 }
 
 //
