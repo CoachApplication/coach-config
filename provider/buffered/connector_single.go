@@ -49,3 +49,7 @@ func (tc *Single) Set(key, scope string, source io.ReadCloser) error {
 	}
 	return nil
 }
+
+func (tc *Single) Dump() []byte {
+	return tc.val
+}
