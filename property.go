@@ -136,6 +136,6 @@ func (scp *ScopedConfigProperty) Set(value interface{}) error {
 		scp.value = typedValue
 		return nil
 	} else {
-		return base_errors.PropertyWrongValueTypeError{Id: scp.Id(), ExpectedType: scp.Type()}
+		return base_errors.PropertyWrongValueTypeError{Id: scp.Id(), Type: scp.Type(), Val: value}
 	}
 }
